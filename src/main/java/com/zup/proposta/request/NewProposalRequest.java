@@ -1,6 +1,9 @@
 package com.zup.proposta.request;
 
 import com.zup.proposta.model.Proposal;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import org.springframework.util.Assert;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -34,5 +37,15 @@ public class NewProposalRequest {
     }
     public Proposal toProposal(){
         return new Proposal(name, email, address, salary, document);
+    }
+
+    public boolean validDocument() {
+        Assert.hasLength(document, "Não é possivel validar um documento vazio");
+        CPFValidator cpfValidator = new CPFValidator();
+        cpfValidator.initialize(null);
+
+        CNPJValidator cnpjValidator = new CNPJValidator();
+        cnpjValidator.initialize(null);
+        return cnpjValidator.isValid(document, null) || cnpjValidator.isValid(document, null);
     }
 }
