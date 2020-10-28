@@ -33,6 +33,7 @@ public class NewProposalRequest {
         this.document = document;
     }
 
+    //1
     public Proposal toProposal() {
         return new Proposal(name, email, address, salary, document);
     }
