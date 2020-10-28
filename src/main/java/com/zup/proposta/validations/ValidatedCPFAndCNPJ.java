@@ -1,23 +1,28 @@
 package com.zup.proposta.validations;
 
-import com.zup.proposta.request.NewProposalRequest;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import org.springframework.stereotype.Component;
 
-public class ValidatedCPFAndCNPJ implements Validator {
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return NewProposalRequest.class.isAssignableFrom(aClass);
-    }
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+@Component
+public class ValidatedCPFAndCNPJ implements ConstraintValidator<ValidCPFAndCNPJ, CharSequence> {
 
     @Override
-    public void validate(Object target, Errors errors) {
-        if (errors.hasErrors()){
-            return;
+    public boolean isValid(CharSequence value,
+                           ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
         }
-        NewProposalRequest request = (NewProposalRequest) target;
-        if (!request.validDocument()) {
-            errors.rejectValue("Documento", null, "documento precisa ter um formato de cpf ou cnpj");
-        }
+        CNPJValidator cnpjValidator = new CNPJValidator();
+        CPFValidator cpfValidator = new CPFValidator();
+
+        cnpjValidator.initialize(null);
+        cpfValidator.initialize(null);
+
+        return cnpjValidator.isValid(value, context)
+                || cpfValidator.isValid(value, context);
     }
 }

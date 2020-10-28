@@ -9,22 +9,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/proposal")
 public class ProposalController {
     @Autowired
     private ProposalRepository repository;
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(new ValidatedCPFAndCNPJ());
-    }
 
     @PostMapping
-    public ResponseEntity<Proposal> createProposal(@RequestBody @Valid NewProposalRequest request) {
+    @Transactional
+    public ResponseEntity<Proposal> createProposal(@RequestBody @Valid NewProposalRequest request, UriComponentsBuilder builder) {
         Proposal proposal = repository.save(request.toProposal());
-        return new ResponseEntity<>(proposal, HttpStatus.CREATED);
+        URI uri = builder.path("/proposal/{id}").build(proposal.getId());
+        return ResponseEntity.created(uri).build();
     }
 }
