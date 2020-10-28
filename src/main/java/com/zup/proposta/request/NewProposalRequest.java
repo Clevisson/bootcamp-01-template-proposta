@@ -8,18 +8,18 @@ import java.math.BigDecimal;
 
 public class NewProposalRequest {
     @NotBlank
-    private String name;
+    private final String name;
     @NotBlank
     @Email
-    private String email;
+    private final String email;
     @NotBlank
-    private String address;
+    private final String address;
     @Positive
     @DecimalMin(value = "0.0", inclusive = false)
-    private BigDecimal salary;
+    private final BigDecimal salary;
     @NotNull
     @ValidCPFAndCNPJ
-    private String document;
+    private final String document;
 
     public NewProposalRequest(@NotBlank String name,
                               @NotBlank @Email String email,
@@ -36,5 +36,9 @@ public class NewProposalRequest {
     //1
     public Proposal toProposal() {
         return new Proposal(name, email, address, salary, document);
+    }
+
+    public String getDocument() {
+        return document;
     }
 }
