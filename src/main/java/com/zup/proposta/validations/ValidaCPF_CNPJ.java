@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @Component
-public class ValidatedCPFAndCNPJ implements ConstraintValidator<ValidCPFAndCNPJ, CharSequence> {
+public class ValidaCPF_CNPJ implements ConstraintValidator<ValidaCPF_E_CNPJ, CharSequence> {
 
     @Override
     public boolean isValid(CharSequence value,

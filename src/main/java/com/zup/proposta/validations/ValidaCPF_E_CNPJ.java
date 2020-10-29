@@ -7,10 +7,10 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {ValidatedCPFAndCNPJ.class})
+@Constraint(validatedBy = {ValidaCPF_CNPJ.class})
 
-public @interface ValidCPFAndCNPJ {
-    String message() default "Documento precisa ter um formato valido";
+public @interface ValidaCPF_E_CNPJ {
+    String message() default "{valida.documento}";
 
     Class<?>[] groups() default {};
 
