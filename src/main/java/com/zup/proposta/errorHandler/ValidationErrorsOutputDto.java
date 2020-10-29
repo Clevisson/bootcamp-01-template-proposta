@@ -1,4 +1,4 @@
-package com.zup.proposta.ErrorHandler;
+package com.zup.proposta.errorHandler;
 
 import java.util.ArrayList;
 import java.util.List;

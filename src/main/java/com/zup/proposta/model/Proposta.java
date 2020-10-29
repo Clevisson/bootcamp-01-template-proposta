@@ -1,5 +1,6 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.model;
 
+import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
 import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
 import org.springframework.util.Assert;
 
@@ -29,6 +30,7 @@ public class Proposta {
     private String documento;
 
    @NotNull
+   @Enumerated(EnumType.STRING)
    private StatusAvaliacaoProposta statusAvaliacao;
 
     public Proposta(@NotBlank String nome,

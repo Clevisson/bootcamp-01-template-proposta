@@ -1,5 +1,6 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.request;
 
+import com.zup.proposta.model.Proposta;
 import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
 
 import javax.validation.constraints.Email;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-public class NovaPropostaRequest {
+public class PropostaRequest {
     @NotBlank
     private final String nome;
     @NotBlank
@@ -23,11 +24,11 @@ public class NovaPropostaRequest {
     @ValidaCPF_E_CNPJ
     private final String documento;
 
-    public NovaPropostaRequest(@NotBlank String nome,
-                               @NotBlank @Email String email,
-                               @NotBlank String endereco,
-                               @Positive BigDecimal salario,
-                               String documento) {
+    public PropostaRequest(@NotBlank String nome,
+                           @NotBlank @Email String email,
+                           @NotBlank String endereco,
+                           @Positive BigDecimal salario,
+                           String documento) {
         super();
         this.nome = nome;
         this.email = email;

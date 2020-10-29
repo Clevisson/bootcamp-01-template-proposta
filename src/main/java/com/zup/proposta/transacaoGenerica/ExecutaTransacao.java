@@ -1,4 +1,4 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.transacaoGenerica;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

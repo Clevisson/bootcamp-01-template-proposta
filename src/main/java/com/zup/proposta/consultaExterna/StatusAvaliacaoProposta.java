@@ -1,4 +1,4 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.consultaExterna;
 
 public enum StatusAvaliacaoProposta {
     nao_elegivel,

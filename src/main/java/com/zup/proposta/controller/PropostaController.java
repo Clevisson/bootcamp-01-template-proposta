@@ -1,5 +1,10 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.controller;
 
+import com.zup.proposta.model.Proposta;
+import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.request.PropostaRequest;
+import com.zup.proposta.services.AvaliaProposta;
+import com.zup.proposta.transacaoGenerica.ExecutaTransacao;
 import com.zup.proposta.validations.ValidaPropostaDocumentoIgual;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -20,7 +24,7 @@ public class PropostaController {
 
     private ValidaPropostaDocumentoIgual validaPropostaDocumentoIgual;
 
-    private  AvaliaProposta avaliaProposta;
+    private AvaliaProposta avaliaProposta;
 
     private ExecutaTransacao executaTransacao;
 
@@ -32,7 +36,7 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProposal(@RequestBody @Valid NovaPropostaRequest request, UriComponentsBuilder builder) {
+    public ResponseEntity<?> createProposal(@RequestBody @Valid PropostaRequest request, UriComponentsBuilder builder) {
         if (!validaPropostaDocumentoIgual.validaProposta(request)) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }

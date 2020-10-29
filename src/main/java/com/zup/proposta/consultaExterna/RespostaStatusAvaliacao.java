@@ -1,4 +1,4 @@
-package com.zup.proposta.proposta;
+package com.zup.proposta.consultaExterna;
 
 public enum RespostaStatusAvaliacao {
     COM_RESTRICAO(StatusAvaliacaoProposta.nao_elegivel), SEM_RESTRICAO(StatusAvaliacaoProposta.elegivel);

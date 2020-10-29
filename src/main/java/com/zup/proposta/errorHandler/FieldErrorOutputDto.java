@@ -1,4 +1,4 @@
-package com.zup.proposta.ErrorHandler;
+package com.zup.proposta.errorHandler;
 
 public class FieldErrorOutputDto {
     private String field;

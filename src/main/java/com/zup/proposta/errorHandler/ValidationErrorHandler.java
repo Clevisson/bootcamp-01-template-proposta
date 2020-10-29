@@ -1,4 +1,4 @@
-package com.zup.proposta.ErrorHandler;
+package com.zup.proposta.errorHandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.slf4j.Logger;
