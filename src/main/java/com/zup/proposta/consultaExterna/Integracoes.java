@@ -1,6 +1,6 @@
 package com.zup.proposta.consultaExterna;
 
-import com.zup.proposta.RespostaAvaliacaoResponse;
+import com.zup.proposta.response.RespostaAvaliacaoResponse;
 import com.zup.proposta.request.DocumentoRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

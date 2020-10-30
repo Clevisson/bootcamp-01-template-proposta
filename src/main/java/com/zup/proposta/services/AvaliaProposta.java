@@ -1,6 +1,6 @@
 package com.zup.proposta.services;
 
-import com.zup.proposta.RespostaAvaliacaoResponse;
+import com.zup.proposta.response.RespostaAvaliacaoResponse;
 import com.zup.proposta.consultaExterna.Integracoes;
 import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
 import com.zup.proposta.errorHandler.ValidationErrorHandler;

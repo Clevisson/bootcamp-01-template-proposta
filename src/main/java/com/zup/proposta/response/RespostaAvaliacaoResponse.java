@@ -1,9 +1,9 @@
-package com.zup.proposta;
+package com.zup.proposta.response;
 
 public class RespostaAvaliacaoResponse {
-    private String documento;
-    private String resultadoSolicitacao;
-    private String idProposta;
+    private final String documento;
+    private final String resultadoSolicitacao;
+    private final String idProposta;
 
     public RespostaAvaliacaoResponse(String documento, String resultadoSolicitacao, String idProposta) {
         this.documento = documento;
