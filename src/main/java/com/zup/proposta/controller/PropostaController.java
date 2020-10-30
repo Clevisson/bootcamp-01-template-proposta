@@ -40,15 +40,15 @@ public class PropostaController {
         if (!validaPropostaDocumentoIgual.validaProposta(request)) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
-        Proposta proposta = request.toProposal();
-        executaTransacao.salvaEComita(proposta);
+            Proposta proposta = request.toProposal();
+            executaTransacao.salvaEComita(proposta);
 
-        StatusAvaliacaoProposta avaliacao = avaliaProposta.executa(proposta);
-        proposta.atualizaStatus(avaliacao);
+            StatusAvaliacaoProposta avaliacao = avaliaProposta.executa(proposta);
+            proposta.atualizaStatus(avaliacao);
 
-        executaTransacao.atualizaEComita(proposta);
+            executaTransacao.atualizaEComita(proposta);
 
-        URI uri = builder.path("/proposal/{id}").build(proposta.getId());
-        return ResponseEntity.created(uri).build();
+            URI uri = builder.path("/proposal/{id}").build(proposta.getId());
+            return ResponseEntity.created(uri).build();
     }
 }

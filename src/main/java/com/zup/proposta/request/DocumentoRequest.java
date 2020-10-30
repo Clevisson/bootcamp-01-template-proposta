@@ -9,11 +9,20 @@ import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
 public class DocumentoRequest {
     @ValidaCPF_E_CNPJ
     private String documento;
+    private String nome;
+    private String idProposta;
 
     @Deprecated
     public DocumentoRequest() {
 
     }
+
+    public DocumentoRequest(String documento, String nome, String idProposta) {
+        this.documento = documento;
+        this.nome = nome;
+        this.idProposta = idProposta;
+    }
+
     public DocumentoRequest(Proposta proposta) {
         this.documento = proposta.getDocumento();
     }

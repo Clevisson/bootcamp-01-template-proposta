@@ -1,7 +1,7 @@
 package com.zup.proposta.services;
 
+import com.zup.proposta.RespostaAvaliacaoResponse;
 import com.zup.proposta.consultaExterna.Integracoes;
-import com.zup.proposta.consultaExterna.RespostaStatusAvaliacao;
 import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
 import com.zup.proposta.errorHandler.ValidationErrorHandler;
 import com.zup.proposta.model.Proposta;
@@ -23,8 +23,13 @@ public class AvaliaProposta {
     private Integracoes integracoes;
 
     public StatusAvaliacaoProposta executa(@NotNull @Validated Proposta proposta) {
-        String resultadoAnalise = integracoes.avalia(new DocumentoRequest(proposta));
-        log.info("passando", resultadoAnalise);
-        return RespostaStatusAvaliacao.valueOf(resultadoAnalise).getStatusAvaliacao();
+        RespostaAvaliacaoResponse resultadoAnalise = integracoes.avalia(new DocumentoRequest(proposta));
+        if (!resultadoAnalise.getResultadoSolicitacao().equals("COM_RESTRICAO")) {
+            return StatusAvaliacaoProposta.elegivel;
+        }
+        return StatusAvaliacaoProposta.nao_elegivel;
     }
+
 }
+
+
