@@ -1,5 +1,4 @@
 package com.zup.proposta.response;
-
 public class RespostaAvaliacaoResponse {
     private final String documento;
     private final String resultadoSolicitacao;

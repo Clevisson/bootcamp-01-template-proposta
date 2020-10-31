@@ -1,9 +1,10 @@
 package com.zup.proposta.controller;
 
-import com.zup.proposta.model.Proposta;
 import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.model.Proposta;
 import com.zup.proposta.request.PropostaRequest;
 import com.zup.proposta.services.AvaliaProposta;
+import com.zup.proposta.services.CriaCartao;
 import com.zup.proposta.transacaoGenerica.ExecutaTransacao;
 import com.zup.proposta.validations.ValidaPropostaDocumentoIgual;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ public class PropostaController {
 
     private ExecutaTransacao executaTransacao;
 
+
+
     public PropostaController(ValidaPropostaDocumentoIgual validaPropostaDocumentoIgual, AvaliaProposta avaliaProposta, ExecutaTransacao executaTransacao) {
         super();
         this.validaPropostaDocumentoIgual = validaPropostaDocumentoIgual;
@@ -40,15 +43,15 @@ public class PropostaController {
         if (!validaPropostaDocumentoIgual.validaProposta(request)) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
-            Proposta proposta = request.toProposal();
-            executaTransacao.salvaEComita(proposta);
+        Proposta proposta = request.toProposal();
+        executaTransacao.salvaEComita(proposta);
 
-            StatusAvaliacaoProposta avaliacao = avaliaProposta.executa(proposta);
-            proposta.atualizaStatus(avaliacao);
+        StatusAvaliacaoProposta avaliacao = avaliaProposta.executa(proposta);
+        proposta.atualizaStatus(avaliacao);
 
-            executaTransacao.atualizaEComita(proposta);
+        executaTransacao.atualizaEComita(proposta);
 
-            URI uri = builder.path("/proposal/{id}").build(proposta.getId());
-            return ResponseEntity.created(uri).build();
+        URI uri = builder.path("/proposal/{id}").build(proposta.getId());
+        return ResponseEntity.created(uri).build();
     }
 }

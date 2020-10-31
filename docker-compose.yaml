@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "12345678"
     ports:
-      - "15433:5432"
+      - "15432:5432"
     volumes:
       - C:\Users\clevisson.cruz\Documentos\Desenvolvimento\Docker-Compose\PostgreSQL
     networks:
@@ -18,7 +18,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: "clevissonalgebra@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "PgAdmin2020!"
     ports:
-      - "16544:80"
+      - "16543:80"
     depends_on:
       - postgres-compose
     networks:

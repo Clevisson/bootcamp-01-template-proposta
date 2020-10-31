@@ -2,6 +2,7 @@ package com.zup.proposta.model;
 
 import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
 import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -10,12 +11,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 public class Proposta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    private UUID id;
     @NotBlank
     private String nome;
     @NotBlank
@@ -29,16 +32,16 @@ public class Proposta {
     @ValidaCPF_E_CNPJ
     private String documento;
 
-   @NotNull
-   @Enumerated(EnumType.STRING)
-   private StatusAvaliacaoProposta statusAvaliacao;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private StatusAvaliacaoProposta statusAvaliacao;
 
     public Proposta(@NotBlank String nome,
                     @NotBlank @Email String email,
                     @NotBlank String endereco,
                     @Positive BigDecimal salario,
                     String documento
-                   ) {
+    ) {
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
@@ -48,9 +51,12 @@ public class Proposta {
     }
 
 
-
-    public Long getId() {
+    public UUID getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getDocumento() {
@@ -83,6 +89,7 @@ public class Proposta {
                 + ((documento == null) ? 0 : documento.hashCode());
         return result;
     }
+
     public void atualizaStatus(StatusAvaliacaoProposta statusAvaliacao) {
         Assert.isTrue(this.statusAvaliacao.equals(StatusAvaliacaoProposta.nao_elegivel),
                 "Uma vez que sua proposta é elegivel, não pode mais trocar");
