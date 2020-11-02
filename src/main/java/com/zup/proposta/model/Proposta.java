@@ -2,7 +2,6 @@ package com.zup.proposta.model;
 
 import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
 import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -35,6 +34,12 @@ public class Proposta {
     @NotNull
     @Enumerated(EnumType.STRING)
     private StatusAvaliacaoProposta statusAvaliacao;
+    @OneToOne
+    private Cartao cartao;
+
+    @Deprecated
+    public Proposta() {
+    }
 
     public Proposta(@NotBlank String nome,
                     @NotBlank @Email String email,
@@ -50,7 +55,6 @@ public class Proposta {
         this.statusAvaliacao = StatusAvaliacaoProposta.nao_elegivel;
     }
 
-
     public UUID getId() {
         return id;
     }
@@ -59,10 +63,33 @@ public class Proposta {
         return nome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
     public String getDocumento() {
         return documento;
     }
 
+    public StatusAvaliacaoProposta getStatusAvaliacao() {
+        return statusAvaliacao;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
 
     @Override
     public boolean equals(Object obj) {

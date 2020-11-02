@@ -25,7 +25,7 @@ public class AvaliaProposta {
 
     public StatusAvaliacaoProposta executa(@NotNull @Validated Proposta proposta) {
         RespostaAvaliacaoResponse resultadoAnalise = integracoes.avalia(new DocumentoRequest(proposta));
-        if (resultadoAnalise.getResultadoSolicitacao().equals("COM_RESTRICAO")) {
+        if (!resultadoAnalise.getResultadoSolicitacao().equals("COM_RESTRICAO")) {
             solicitaCriarCartao.executa(proposta);
             return StatusAvaliacaoProposta.elegivel;
         }

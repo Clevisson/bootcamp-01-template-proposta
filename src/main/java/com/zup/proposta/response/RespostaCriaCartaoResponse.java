@@ -82,4 +82,8 @@ public class RespostaCriaCartaoResponse {
     public String getIdProposta() {
         return idProposta;
     }
+
+    public Cartao toModel() {
+        return new Cartao(id, emitidoEm, titular, bloqueios, avisos, carteiras, parcela, limite, renegociacao, vencimento, idProposta);
+    }
 }
