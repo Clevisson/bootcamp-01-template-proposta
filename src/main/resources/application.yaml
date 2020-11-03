@@ -16,6 +16,12 @@ spring:
 server:
   port: 9000
 
+feigh:
+  client:
+    CriaCartao:
+      connect-timeout: 100
+      read-timeout: 100
+
 management:
   endpoints:
     web:

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Embeddable
 public class Vencimento {
-    @Column(name = "id_vencimento",insertable = false, updatable = false)
+    @Column(name = "id_vencimento", insertable = false, updatable = false)
     String id;
     @Column(name = "dia_vencimento")
     Integer Dia;

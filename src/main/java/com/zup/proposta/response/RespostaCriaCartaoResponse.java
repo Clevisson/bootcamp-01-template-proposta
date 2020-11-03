@@ -2,26 +2,28 @@ package com.zup.proposta.response;
 
 import com.zup.proposta.model.*;
 
+import java.util.Set;
+
 public class RespostaCriaCartaoResponse {
-    String id;
-    String emitidoEm;
-    String titular;
-    Bloqueio bloqueios;
-    AvisoViagem avisos;
-    Carteiras carteiras;
-    Parcela parcela;
-    int limite;
-    Renegociacao renegociacao;
-    Vencimento vencimento;
-    String idProposta;
+    private String id;
+    private String emitidoEm;
+    private String titular;
+    private Set<Bloqueio> bloqueios;
+    private Set<AvisoViagem> avisos;
+    private Set<Carteiras> carteiras;
+    private Set<Parcela> parcela;
+    private int limite;
+    private Renegociacao renegociacao;
+    private Vencimento vencimento;
+    private String idProposta;
 
     public RespostaCriaCartaoResponse(String id,
                                       String emitidoEm,
                                       String titular,
-                                      Bloqueio bloqueios,
-                                      AvisoViagem avisos,
-                                      Carteiras carteiras,
-                                      Parcela parcela,
+                                      Set<Bloqueio> bloqueios,
+                                      Set<AvisoViagem> avisos,
+                                      Set<Carteiras> carteiras,
+                                      Set<Parcela> parcela,
                                       int limite,
                                       Renegociacao renegociacao,
                                       Vencimento vencimento,
@@ -51,19 +53,19 @@ public class RespostaCriaCartaoResponse {
         return titular;
     }
 
-    public Bloqueio getBloqueios() {
+    public Set<Bloqueio> getBloqueios() {
         return bloqueios;
     }
 
-    public AvisoViagem getAvisos() {
+    public Set<AvisoViagem> getAvisos() {
         return avisos;
     }
 
-    public Carteiras getCarteiras() {
+    public Set<Carteiras> getCarteiras() {
         return carteiras;
     }
 
-    public Parcela getParcela() {
+    public Set<Parcela> getParcela() {
         return parcela;
     }
 

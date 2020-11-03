@@ -4,6 +4,9 @@ package com.zup.proposta.model;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Cartao {
@@ -12,19 +15,22 @@ public class Cartao {
     private String emitidoEm;
     private String titular;
     @Embedded
-    private Bloqueio bloqueios;
+    private Set<Bloqueio> bloqueios;
     @Embedded
-    private AvisoViagem avisos;
+    private Set<AvisoViagem> avisos;
     @Embedded
-    private Carteiras carteiras;
+    private Set<Carteiras> carteiras;
     @Embedded
-    private Parcela parcela;
+    private Set<Parcela> parcela;
     private int limite;
     @Embedded
     private Renegociacao renegociacao;
     @Embedded
     private Vencimento vencimento;
     private String idProposta;
+
+    @OneToMany(mappedBy = "cartao")
+    List<Biometria> biometria;
 
     @Deprecated
     public Cartao() {
@@ -33,10 +39,10 @@ public class Cartao {
     public Cartao(String id,
                   String emitidoEm,
                   String titular,
-                  Bloqueio bloqueios,
-                  AvisoViagem avisos,
-                  Carteiras carteiras,
-                  Parcela parcela,
+                  Set<Bloqueio> bloqueios,
+                  Set<AvisoViagem> avisos,
+                  Set<Carteiras> carteiras,
+                  Set<Parcela> parcela,
                   int limite,
                   Renegociacao renegociacao,
                   Vencimento vencimento,
@@ -52,5 +58,6 @@ public class Cartao {
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
         this.idProposta = idProposta;
+        this.biometria = biometria;
     }
 }

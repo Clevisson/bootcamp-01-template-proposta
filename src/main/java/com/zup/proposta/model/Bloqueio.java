@@ -12,4 +12,36 @@ public class Bloqueio {
     String sistemaResponsavel;
     @Column(name = "bloqueio_ativo")
     Boolean ativo;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getBloqueadoEm() {
+        return bloqueadoEm;
+    }
+
+    public String getSistemaResponsavel() {
+        return sistemaResponsavel;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setBloqueadoEm(String bloqueadoEm) {
+        this.bloqueadoEm = bloqueadoEm;
+    }
+
+    public void setSistemaResponsavel(String sistemaResponsavel) {
+        this.sistemaResponsavel = sistemaResponsavel;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 }

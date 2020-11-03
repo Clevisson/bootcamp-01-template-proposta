@@ -25,5 +25,19 @@ public class DocumentoRequest {
 
     public DocumentoRequest(Proposta proposta) {
         this.documento = proposta.getDocumento();
+        this.nome = proposta.getNome();
+        this.idProposta = proposta.getId().toString();
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getIdProposta() {
+        return idProposta;
     }
 }

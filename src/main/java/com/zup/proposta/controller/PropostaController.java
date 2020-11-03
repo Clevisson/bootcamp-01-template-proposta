@@ -55,7 +55,7 @@ public class PropostaController {
     }
 
     @GetMapping(path = {"/{id}"})
-    public ResponseEntity<?>  listaPropostaporId(@PathVariable("id") UUID id) {
+    public ResponseEntity<?> listaPropostaporId(@PathVariable("id") UUID id) {
         return repository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
