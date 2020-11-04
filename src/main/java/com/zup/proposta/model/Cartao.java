@@ -29,7 +29,7 @@ public class Cartao {
     private Vencimento vencimento;
     private String idProposta;
 
-    @OneToMany(mappedBy = "cartao")
+    @OneToMany
     List<Biometria> biometria;
 
     @Deprecated

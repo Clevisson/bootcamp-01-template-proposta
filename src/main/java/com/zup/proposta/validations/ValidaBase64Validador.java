@@ -1,20 +1,27 @@
 package com.zup.proposta.validations;
 
+import com.zup.proposta.request.BiometriaRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Pattern;
 
 @Component
-public class ValidaBase64Validador implements ConstraintValidator<ValidaBase64, String> {
+public class ValidaBase64Validador implements Validator {
 
     @Override
-    public boolean isValid(String charSequence, ConstraintValidatorContext context) {
-        String regex =
-                "([A-Za-z0-9+/]{4})*" +
-                        "([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)";
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(charSequence).matches();
+    public boolean supports(Class<?> aClass) {
+        return BiometriaRequest.class.isAssignableFrom(aClass);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        if (errors.hasErrors()) {
+            return;
+        }
+        BiometriaRequest request = (BiometriaRequest) target;
+        if (!request.isBase64(((BiometriaRequest) target).getFingerPrint())) {
+            errors.rejectValue("fingerPrint", null, "Biometria passada não esta no formato Base64");
+        }
     }
 }
