@@ -32,19 +32,7 @@ public class BiometriaController {
     public ResponseEntity<?> createBiometria(@RequestBody @Valid BiometriaRequest request, UriComponentsBuilder builder) {
         Biometria biometria = request.toModel(manager);
         manager.persist(biometria);
-        URI uri = builder.path("/proposal/{id}").build(biometria.getId());
+        URI uri = builder.path("/biometrias/{id}").build(biometria.getId());
         return ResponseEntity.created(uri).build();
-
-        /*
-                .map(record -> {
-                    record.setIdCartao(idCartao);
-                    record.setFingerprint(request.getFingerPrint());
-                    Biometria biometria = repository.save(record);
-                    URI uri = builder.path("/proposal/{id}").build(biometria.getId());
-                    return ResponseEntity.created(uri).build();
-                }).orElse(ResponseEntity.notFound().build());
-    }
-
-         */
     }
 }
