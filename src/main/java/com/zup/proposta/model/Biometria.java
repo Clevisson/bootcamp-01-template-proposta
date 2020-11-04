@@ -10,9 +10,8 @@ public class Biometria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+
     @ManyToOne
-    @JoinColumn(name = "cartao_id")
     private Cartao cartao;
 
     @ValidaBase64
