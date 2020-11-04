@@ -1,10 +1,7 @@
 package com.zup.proposta.model;
 
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +26,7 @@ public class Cartao {
     private Vencimento vencimento;
     private String idProposta;
 
-    @OneToMany
+    @OneToMany(mappedBy = "idCartao")
     List<Biometria> biometria;
 
     @Deprecated
