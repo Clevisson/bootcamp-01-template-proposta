@@ -1,8 +1,6 @@
 package com.zup.proposta.model;
 
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,23 +9,23 @@ public class Cartao {
     private String id;
     private String emitidoEm;
     private String titular;
-    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Bloqueio> bloqueios;
-    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<AvisoViagem> avisos;
-    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Carteiras> carteiras;
-    @Embedded
-    private Set<Parcela> parcela;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Parcela> parcelas;
     private int limite;
-    @Embedded
-    private Renegociacao renegociacao;
-    @Embedded
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Renegociacao> renegociacao;
+    @OneToOne(cascade = CascadeType.ALL)
     private Vencimento vencimento;
     private String idProposta;
 
     @OneToMany(mappedBy = "idCartao")
-    List<Biometria> biometria;
+    Set<Biometria> biometria;
 
     @Deprecated
     public Cartao() {
@@ -39,9 +37,9 @@ public class Cartao {
                   Set<Bloqueio> bloqueios,
                   Set<AvisoViagem> avisos,
                   Set<Carteiras> carteiras,
-                  Set<Parcela> parcela,
+                  Set<Parcela> parcelas,
                   int limite,
-                  Renegociacao renegociacao,
+                  Set<Renegociacao> renegociacao,
                   Vencimento vencimento,
                   String idProposta) {
         this.id = id;
@@ -50,11 +48,54 @@ public class Cartao {
         this.bloqueios = bloqueios;
         this.avisos = avisos;
         this.carteiras = carteiras;
-        this.parcela = parcela;
+        this.parcelas = parcelas;
         this.limite = limite;
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
         this.idProposta = idProposta;
-        this.biometria = biometria;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getEmitidoEm() {
+        return emitidoEm;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public Set<Bloqueio> getBloqueios() {
+        return bloqueios;
+    }
+
+    public Set<AvisoViagem> getAvisos() {
+        return avisos;
+    }
+
+    public Set<Carteiras> getCarteiras() {
+        return carteiras;
+    }
+
+    public Set<Parcela> getParcelas() {
+        return parcelas;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public Set<Renegociacao> getRenegociacao() {
+        return renegociacao;
+    }
+
+    public Vencimento getVencimento() {
+        return vencimento;
+    }
+
+    public String getIdProposta() {
+        return idProposta;
     }
 }

@@ -1,7 +1,7 @@
 package com.zup.proposta.services;
 
-import com.zup.proposta.consultaExterna.Integracoes;
-import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.consultaExterna.IntegracaoAvaliaProposta;
+import com.zup.proposta.enums.StatusAvaliacaoProposta;
 import com.zup.proposta.model.Proposta;
 import com.zup.proposta.request.DocumentoRequest;
 import com.zup.proposta.response.RespostaAvaliacaoResponse;
@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class AvaliaProposta {
     @Autowired
-    private Integracoes integracoes;
+    private IntegracaoAvaliaProposta integracaoAvaliaProposta;
 
     public StatusAvaliacaoProposta executa(@NotNull @Validated Proposta proposta) {
         try {
-            RespostaAvaliacaoResponse resultadoAnalise = integracoes.avalia(new DocumentoRequest(proposta));
+            RespostaAvaliacaoResponse resultadoAnalise = integracaoAvaliaProposta.avalia(new DocumentoRequest(proposta));
             System.out.println(resultadoAnalise);
             if (!resultadoAnalise.getResultadoSolicitacao().equals("COM_RESTRICAO")) {
                 return StatusAvaliacaoProposta.elegivel;

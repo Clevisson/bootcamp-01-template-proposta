@@ -1,6 +1,6 @@
 package com.zup.proposta.controller;
 
-import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.enums.StatusAvaliacaoProposta;
 import com.zup.proposta.model.Proposta;
 import com.zup.proposta.repository.PropostaRepository;
 import com.zup.proposta.request.PropostaRequest;

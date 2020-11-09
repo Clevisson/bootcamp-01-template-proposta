@@ -1,17 +1,28 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Embeddable
+@Entity
 public class Renegociacao {
-    @Column(name = "id_renegociacao", insertable = false, updatable = false)
-    String id;
-    @Column(name = "quantidade_renegociacao")
-    Integer quartidade;
-    @Column(name = "valor_renegociacao")
-    Number valor;
-    @Column(name = "data_criacao_renegociacao")
-    LocalDateTime dataCriacao;
+    @Id
+    private String id;
+    private Integer quartidade;
+    private Number valor;
+    private LocalDateTime dataCriacao;
+
+    @Deprecated
+    public Renegociacao() {
+    }
+
+    public Renegociacao(String id,
+                        Integer quartidade,
+                        Number valor,
+                        LocalDateTime dataCriacao) {
+        this.id = id;
+        this.quartidade = quartidade;
+        this.valor = valor;
+        this.dataCriacao = dataCriacao;
+    }
 }

@@ -1,12 +1,34 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Embeddable
+@Entity
 public class AvisoViagem {
-    @Column(name = "validadade_aviso_viagem")
-    String validoAte;
-    @Column(name = "destino_aviso_viagem")
-    String destino;
+    @Id
+    private String id;
+    private String validoAte;
+    private String destino;
+
+    @Deprecated
+    public AvisoViagem() {
+    }
+
+    public AvisoViagem(String id, String validoAte, String destino) {
+        this.id = id;
+        this.validoAte = validoAte;
+        this.destino = destino;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getValidoAte() {
+        return validoAte;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
 }

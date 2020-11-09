@@ -1,17 +1,26 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Embeddable
+@Entity
 public class Bloqueio {
-    @Column(name = "id_bloqueio", insertable = false, updatable = false)
-    String id;
-    String bloqueadoEm;
-    @Column(name = "sistema_responsavel_bloqueio")
-    String sistemaResponsavel;
-    @Column(name = "bloqueio_ativo")
-    Boolean ativo;
+    @Id
+    private String id;
+    private String bloqueadoEm;
+    private String sistemaResponsavel;
+    private Boolean ativo;
+
+    @Deprecated
+    public Bloqueio() {
+    }
+
+    public Bloqueio(String id, String bloqueadoEm, String sistemaResponsavel, Boolean ativo) {
+        this.id = id;
+        this.bloqueadoEm = bloqueadoEm;
+        this.sistemaResponsavel = sistemaResponsavel;
+        this.ativo = ativo;
+    }
 
     public String getId() {
         return id;

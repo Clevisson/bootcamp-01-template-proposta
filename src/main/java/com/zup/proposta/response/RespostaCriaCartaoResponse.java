@@ -11,9 +11,9 @@ public class RespostaCriaCartaoResponse {
     private Set<Bloqueio> bloqueios;
     private Set<AvisoViagem> avisos;
     private Set<Carteiras> carteiras;
-    private Set<Parcela> parcela;
+    private Set<Parcela> parcelas;
     private int limite;
-    private Renegociacao renegociacao;
+    private Set<Renegociacao> renegociacao;
     private Vencimento vencimento;
     private String idProposta;
 
@@ -23,9 +23,9 @@ public class RespostaCriaCartaoResponse {
                                       Set<Bloqueio> bloqueios,
                                       Set<AvisoViagem> avisos,
                                       Set<Carteiras> carteiras,
-                                      Set<Parcela> parcela,
+                                      Set<Parcela> parcelas,
                                       int limite,
-                                      Renegociacao renegociacao,
+                                      Set<Renegociacao> renegociacao,
                                       Vencimento vencimento,
                                       String idProposta) {
         this.id = id;
@@ -34,7 +34,7 @@ public class RespostaCriaCartaoResponse {
         this.bloqueios = bloqueios;
         this.avisos = avisos;
         this.carteiras = carteiras;
-        this.parcela = parcela;
+        this.parcelas = parcelas;
         this.limite = limite;
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
@@ -65,15 +65,15 @@ public class RespostaCriaCartaoResponse {
         return carteiras;
     }
 
-    public Set<Parcela> getParcela() {
-        return parcela;
+    public Set<Parcela> getParcelas() {
+        return parcelas;
     }
 
     public int getLimite() {
         return limite;
     }
 
-    public Renegociacao getRenegociacao() {
+    public Set<Renegociacao> getRenegociacao() {
         return renegociacao;
     }
 
@@ -86,6 +86,6 @@ public class RespostaCriaCartaoResponse {
     }
 
     public Cartao toModel() {
-        return new Cartao(id, emitidoEm, titular, bloqueios, avisos, carteiras, parcela, limite, renegociacao, vencimento, idProposta);
+        return new Cartao(id, emitidoEm, titular, bloqueios, avisos, carteiras, parcelas, limite, renegociacao, vencimento, idProposta);
     }
 }

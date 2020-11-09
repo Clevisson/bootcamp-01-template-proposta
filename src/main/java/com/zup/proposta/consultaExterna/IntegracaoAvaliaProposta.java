@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(url = "http://localhost:9999", name = "proposta")
-public interface Integracoes {
+public interface IntegracaoAvaliaProposta {
     @PostMapping("/api/solicitacao")
     public RespostaAvaliacaoResponse avalia(DocumentoRequest request);
 }

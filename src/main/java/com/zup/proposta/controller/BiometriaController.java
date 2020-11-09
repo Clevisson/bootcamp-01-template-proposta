@@ -1,8 +1,6 @@
 package com.zup.proposta.controller;
 
 import com.zup.proposta.model.Biometria;
-import com.zup.proposta.model.Cartao;
-
 import com.zup.proposta.repository.CartaoRepository;
 import com.zup.proposta.request.BiometriaRequest;
 import com.zup.proposta.validations.ValidaBase64Validador;
@@ -19,7 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = {"/{id}"})
+@RequestMapping("/biometrias")
 public class BiometriaController {
 
     @PersistenceContext

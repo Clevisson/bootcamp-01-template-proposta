@@ -1,4 +1,4 @@
-package com.zup.proposta.consultaExterna;
+package com.zup.proposta.enums;
 
 public enum RespostaStatusAvaliacao {
     COM_RESTRICAO,

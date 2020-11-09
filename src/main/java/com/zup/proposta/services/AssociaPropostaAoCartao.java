@@ -1,7 +1,7 @@
 package com.zup.proposta.services;
 
 import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
-import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.enums.StatusAvaliacaoProposta;
 import com.zup.proposta.model.Cartao;
 import com.zup.proposta.model.Proposta;
 import com.zup.proposta.response.RespostaCriaCartaoResponse;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
@@ -43,7 +44,17 @@ public class AssociaPropostaAoCartao {
                 ResponseEntity<RespostaCriaCartaoResponse> resposta = integracaoCriaCartao.consultaCartaoCriado(p.getId().toString());
                 System.out.println(resposta.toString());
                 if (resposta.getStatusCode() == HttpStatus.OK) {
-                    Cartao cartao = new Cartao(resposta.getBody().getId(), resposta.getBody().getEmitidoEm(), resposta.getBody().getTitular(), resposta.getBody().getBloqueios(), resposta.getBody().getAvisos(), resposta.getBody().getCarteiras(), resposta.getBody().getParcela(), resposta.getBody().getLimite(), resposta.getBody().getRenegociacao(), resposta.getBody().getVencimento(), resposta.getBody().getIdProposta());
+                    Cartao cartao = new Cartao(resposta.getBody().getId(),
+                            resposta.getBody().getEmitidoEm(),
+                            resposta.getBody().getTitular(),
+                            resposta.getBody().getBloqueios(),
+                            resposta.getBody().getAvisos(),
+                            resposta.getBody().getCarteiras(),
+                            resposta.getBody().getParcelas(),
+                            resposta.getBody().getLimite(),
+                            resposta.getBody().getRenegociacao(),
+                            resposta.getBody().getVencimento(),
+                            resposta.getBody().getIdProposta());
                     p.setCartao(resposta.getBody().toModel());
                     executaTransacao.salvaEComita(cartao);
                 }

@@ -1,17 +1,13 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-
-@Embeddable
+@Entity
 public class CarteiraDigital {
-    @Column(name = "id_CarteiraDigital", insertable = false, updatable = false)
-    String id;
-    @Column(name = "email_carteira_digital")
-    String email;
-    @Column(name = "associado_em_carteira_digital")
-    String associadoEm;
-    @Column(name = "emissor_carteira_digital")
-    String emissor;
+    @Id
+    private String id;
+    private String email;
+    private String associadoEm;
+    private String emissor;
 }

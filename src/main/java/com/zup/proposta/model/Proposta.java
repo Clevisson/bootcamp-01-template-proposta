@@ -1,6 +1,6 @@
 package com.zup.proposta.model;
 
-import com.zup.proposta.consultaExterna.StatusAvaliacaoProposta;
+import com.zup.proposta.enums.StatusAvaliacaoProposta;
 import com.zup.proposta.validations.ValidaCPF_E_CNPJ;
 import org.springframework.util.Assert;
 

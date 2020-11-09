@@ -1,14 +1,22 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Embeddable
+@Entity
 public class Parcela {
-    @Column(name = "id_parcela", insertable = false, updatable = false)
-    String id;
-    @Column(name = "quantidade_parcelas")
-    Integer quartidade;
-    @Column(name = "valor_parcela")
-    Number valor;
+    @Id
+    private String id;
+    private Integer quartidade;
+    private Number valor;
+
+    @Deprecated
+    public Parcela() {
+    }
+
+    public Parcela(String id, Integer quartidade, Number valor) {
+        this.id = id;
+        this.quartidade = quartidade;
+        this.valor = valor;
+    }
 }
