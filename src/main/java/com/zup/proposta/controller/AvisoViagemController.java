@@ -1,16 +1,13 @@
 package com.zup.proposta.controller;
 
 import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
-import com.zup.proposta.enums.StatusBloqueioCartao;
-import com.zup.proposta.model.Bloqueio;
+import com.zup.proposta.model.AvisoViagem;
 import com.zup.proposta.model.Cartao;
-import com.zup.proposta.repository.CartaoRepository;
-import com.zup.proposta.request.CartaoBloqueadoRequest;
-import com.zup.proposta.response.CartaoBloqueadoResponse;
+import com.zup.proposta.request.AvisoViagemRequest;
+import com.zup.proposta.response.AvisoViagemResponse;
 import com.zup.proposta.transacaoGenerica.ExecutaTransacao;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -20,52 +17,43 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/bloqueios")
-public class BloqueioCartaoController {
-    @Autowired
-    private IntegracaoCriaCartao bloqueio;
-
-    @Autowired
-    private CartaoRepository repository;
+@RequestMapping("avisos")
+public class AvisoViagemController {
     @Autowired
     private ExecutaTransacao executaTransacao;
+    @Autowired
+    private IntegracaoCriaCartao aviso;
 
     @PersistenceContext
     private EntityManager manager;
 
-    @Value("${spring.application.name}")
-    private String sistemaResponsavel;
-
     @PostMapping("/{idCartao}")
     @Transactional
-    public ResponseEntity<?> bloqueiaCartao(@PathVariable("idCartao") String idCartao, @RequestHeader("User-Agent") String usuario, UriComponentsBuilder builder) {
-
+    public ResponseEntity<?> criaAvisoViagem(@PathVariable("idCartao") String idCartao, @Valid @RequestBody AvisoViagemRequest request, @RequestHeader("User-Agent") String usuario, UriComponentsBuilder builder) {
         Cartao cartao = manager.find(Cartao.class, idCartao);
         if (cartao == null) {
             return ResponseEntity.notFound().build();
         }
         String ip = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
 
-        Bloqueio cartaoBloqueado = new Bloqueio(ip, usuario);
-        executaTransacao.salvaEComita(cartaoBloqueado);
-        cartao.getBloqueios().add(cartaoBloqueado);
-
+        AvisoViagem avisoViagem = new AvisoViagem(request.getDestino(), request.getValidoAte(), ip, usuario);
+        executaTransacao.salvaEComita(avisoViagem);
 
         try {
-            CartaoBloqueadoResponse cartaoBloqueadoResponse = bloqueio.bloqueiaCartao(cartao.getId(), new CartaoBloqueadoRequest(sistemaResponsavel));
-            if (cartaoBloqueadoResponse.getResultado().equals("BLOQUEADO")) {
-                cartao.setStatusBloqueio(StatusBloqueioCartao.BLOQUEADO);
+            AvisoViagemResponse avisoViagemResponse = aviso.AvisoViagem(cartao.getId(), new AvisoViagemRequest(request.getDestino(), request.getValidoAte()));
+            if (avisoViagemResponse.getResultado().equals("CRIADO")) {
+                cartao.getAvisos().add(avisoViagem);
                 executaTransacao.atualizaEComita(cartao);
             }
         } catch (FeignException e) {
             System.out.println(e);
         }
 
-
-        URI uri = builder.path("/cartoes/{id}").build(cartaoBloqueado.getId());
+        URI uri = builder.path("/avisos/{id}").build(avisoViagem.getId());
         return ResponseEntity.created(uri).build();
     }
 }

@@ -1,30 +1,51 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class AvisoViagem {
     @Id
-    private String id;
-    private String validoAte;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    private UUID id;
+    @NotNull
+    private Date validoAte;
+    @NotBlank
     private String destino;
+    private LocalDateTime instanteAvisoViagem = LocalDateTime.now();
+    @NotBlank
+    private String ipClienteSolicitante;
+    @NotBlank
+    private String userAgente;
 
     @Deprecated
     public AvisoViagem() {
     }
-
-    public AvisoViagem(String id, String validoAte, String destino) {
-        this.id = id;
+/*
+    public AvisoViagem(String validoAte, String destino) {
         this.validoAte = validoAte;
         this.destino = destino;
     }
 
-    public String getId() {
+ */
+
+    public AvisoViagem(String destino, Date validoAte, String ipClienteSolicitante, String userAgente) {
+        this.ipClienteSolicitante = ipClienteSolicitante;
+        this.userAgente = userAgente;
+        this.validoAte = validoAte;
+        this.destino = destino;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public String getValidoAte() {
+    public Date getValidoAte() {
         return validoAte;
     }
 

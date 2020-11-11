@@ -22,21 +22,17 @@ public class Cartao {
     private Set<Bloqueio> bloqueios = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "avisos_id")
     private Set<AvisoViagem> avisos = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "carteiras_id")
     private Set<Carteiras> carteiras = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parcelas_id")
     private Set<Parcela> parcelas = new HashSet<>();
 
     private int limite;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "renegociacao_id")
     private Set<Renegociacao> renegociacao = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
