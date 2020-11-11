@@ -31,4 +31,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: "info, health"
+        include: "info,health,prometheus"
+    prometheus.enable: true
+  metrics:
+    tags:
+      aplicacao: "Serviço de proposta"
+      ambiente: "desenvolvimento"

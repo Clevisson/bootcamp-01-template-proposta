@@ -1,8 +1,16 @@
 package com.zup.proposta.controller;
 
-import com.zup.proposta.model.CartaoBloqueado;
+import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
+import com.zup.proposta.enums.StatusBloqueioCartao;
+import com.zup.proposta.model.Bloqueio;
+import com.zup.proposta.model.Cartao;
 import com.zup.proposta.repository.CartaoRepository;
+import com.zup.proposta.request.CartaoBloqueadoRequest;
+import com.zup.proposta.response.CartaoBloqueadoResponse;
+import com.zup.proposta.transacaoGenerica.ExecutaTransacao;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -17,25 +25,46 @@ import java.net.URI;
 @RestController
 @RequestMapping("/bloqueios")
 public class BloqueioCartaoController {
+    @Autowired
+    private IntegracaoCriaCartao bloqueio;
 
     @Autowired
     private CartaoRepository repository;
+    @Autowired
+    private ExecutaTransacao executaTransacao;
+
     @PersistenceContext
     private EntityManager manager;
+
+    @Value("${spring.application.name}")
+    private String sistemaResponsavel;
 
     @PostMapping("/{idCartao}")
     @Transactional
     public ResponseEntity<?> bloqueiaCartao(@PathVariable("idCartao") String idCartao, @RequestHeader("User-Agent") String usuario, UriComponentsBuilder builder) {
-        if (repository.findById(idCartao).isPresent()) {
 
-            String ip = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
+        Cartao cartao = manager.find(Cartao.class, idCartao);
+        if (cartao == null) {
+            return ResponseEntity.notFound().build();
+        }
+        String ip = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
 
-            CartaoBloqueado cartaoBloqueado = new CartaoBloqueado(usuario, ip);
-            manager.persist(cartaoBloqueado);
+        Bloqueio cartaoBloqueado = new Bloqueio(ip, usuario);
+        executaTransacao.salvaEComita(cartaoBloqueado);
+        cartao.getBloqueios().add(cartaoBloqueado);
 
-            URI uri = builder.path("/cartoes/{id}").build(cartaoBloqueado.getId());
-            return ResponseEntity.created(uri).build();
 
-        } else return ResponseEntity.notFound().build();
-    }
+        try {
+            CartaoBloqueadoResponse cartaoBloqueadoResponse = bloqueio.bloqueiaCartao(cartao.getId(), new CartaoBloqueadoRequest(sistemaResponsavel));
+            if (cartaoBloqueadoResponse.getResultado().equals("BLOQUEADO")) {
+                cartao.setStatusBloqueio(StatusBloqueioCartao.BLOQUEADO);
+            }
+        } catch (FeignException e) {
+            System.out.println(e);
+        }
+        executaTransacao.atualizaEComita(cartao);
+
+        URI uri = builder.path("/cartoes/{id}").build(cartaoBloqueado.getId());
+        return ResponseEntity.created(uri).build();
+    } //else return ResponseEntity.notFound().build();
 }

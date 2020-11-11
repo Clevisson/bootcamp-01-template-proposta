@@ -14,6 +14,6 @@ public interface IntegracaoCriaCartao {
     @ResponseBody
     ResponseEntity<RespostaCriaCartaoResponse> consultaCartaoCriado(@RequestParam String idProposta);
 
-    @PostMapping("api/cartoes/{idCartao}/bloqueios")
+    @PostMapping("/api/cartoes/{idCartao}/bloqueios")
     CartaoBloqueadoResponse bloqueiaCartao(@PathVariable String idCartao, @RequestBody CartaoBloqueadoRequest request);
 }

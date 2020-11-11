@@ -1,56 +1,34 @@
 package com.zup.proposta.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class Bloqueio {
     @Id
-    private String id;
-    private String bloqueadoEm;
-    private String sistemaResponsavel;
-    private Boolean ativo;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    private UUID id;
+
+    private LocalDateTime bloqueadoEm = LocalDateTime.now();
+
+    private Boolean ativo = true;
+
+    private String ipClienteSolicitante;
+
+    private String userAgente;
 
     @Deprecated
     public Bloqueio() {
     }
 
-    public Bloqueio(String id, String bloqueadoEm, String sistemaResponsavel, Boolean ativo) {
-        this.id = id;
-        this.bloqueadoEm = bloqueadoEm;
-        this.sistemaResponsavel = sistemaResponsavel;
-        this.ativo = ativo;
+    public Bloqueio(String ipClienteSolicitante, String userAgente) {
+        this.ipClienteSolicitante = ipClienteSolicitante;
+        this.userAgente = userAgente;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public String getBloqueadoEm() {
-        return bloqueadoEm;
-    }
-
-    public String getSistemaResponsavel() {
-        return sistemaResponsavel;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setBloqueadoEm(String bloqueadoEm) {
-        this.bloqueadoEm = bloqueadoEm;
-    }
-
-    public void setSistemaResponsavel(String sistemaResponsavel) {
-        this.sistemaResponsavel = sistemaResponsavel;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
     }
 }

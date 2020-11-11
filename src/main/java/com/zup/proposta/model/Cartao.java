@@ -1,31 +1,52 @@
 package com.zup.proposta.model;
 
+import com.zup.proposta.enums.StatusBloqueioCartao;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Cartao {
     @Id
     private String id;
+
     private String emitidoEm;
+
     private String titular;
+
+    @Enumerated(EnumType.STRING)
+    private StatusBloqueioCartao statusBloqueio;
+
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Bloqueio> bloqueios;
+    //@JoinColumn(name = "bloqueios_id")
+    private Set<Bloqueio> bloqueios = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<AvisoViagem> avisos;
+    @JoinColumn(name = "avisos_id")
+    private Set<AvisoViagem> avisos = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Carteiras> carteiras;
+    @JoinColumn(name = "carteiras_id")
+    private Set<Carteiras> carteiras = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Parcela> parcelas;
+    @JoinColumn(name = "parcelas_id")
+    private Set<Parcela> parcelas = new HashSet<>();
+
     private int limite;
+
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Renegociacao> renegociacao;
+    @JoinColumn(name = "renegociacao_id")
+    private Set<Renegociacao> renegociacao = new HashSet<>();
+
     @OneToOne(cascade = CascadeType.ALL)
     private Vencimento vencimento;
+
     private String idProposta;
 
     @OneToMany(mappedBy = "idCartao")
-    Set<Biometria> biometria;
+    Set<Biometria> biometria = new HashSet<>();
 
     @Deprecated
     public Cartao() {
@@ -53,6 +74,7 @@ public class Cartao {
         this.renegociacao = renegociacao;
         this.vencimento = vencimento;
         this.idProposta = idProposta;
+        this.statusBloqueio = StatusBloqueioCartao.DESBLOQUEADO;
     }
 
     public String getId() {
@@ -97,5 +119,13 @@ public class Cartao {
 
     public String getIdProposta() {
         return idProposta;
+    }
+
+    public void setStatusBloqueio(StatusBloqueioCartao statusBloqueio) {
+        this.statusBloqueio = statusBloqueio;
+    }
+
+    public StatusBloqueioCartao getStatusBloqueio() {
+        return statusBloqueio;
     }
 }

@@ -17,10 +17,11 @@ public class ConfiguracaoSegurança extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(autorizeRequest ->
                 autorizeRequest
-                        .antMatchers(HttpMethod.GET, "/propostas/**").hasAuthority("SCOPE_propostas:read")
-                        .antMatchers(HttpMethod.POST, "/propostas/").hasAuthority("SCOPE_propostas:write")
-                        .antMatchers(HttpMethod.POST, "/biometrias/").hasAuthority("SCOPE_biometrias:write")
+                        .antMatchers(HttpMethod.GET, "/propostas/**").hasAuthority("SCOPE_cartoes:read")
+                        .antMatchers(HttpMethod.POST, "/propostas/").hasAuthority("SCOPE_cartoes:write")
+                        .antMatchers(HttpMethod.POST, "/biometrias/").hasAuthority("SCOPE_cartoes:write")
                         .anyRequest().authenticated()
+
         )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }
