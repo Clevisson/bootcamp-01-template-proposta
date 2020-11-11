@@ -35,5 +35,5 @@ management:
     prometheus.enable: true
   metrics:
     tags:
-      aplicacao: "Serviço de proposta"
-      ambiente: "desenvolvimento"
+      aplicacao: ${NOME_DA_APLICACAO:Serviço de proposta}
+      ambiente: ${AMBIENTE:desenvolvimento}

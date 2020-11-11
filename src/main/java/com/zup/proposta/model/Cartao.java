@@ -19,7 +19,6 @@ public class Cartao {
     private StatusBloqueioCartao statusBloqueio;
 
     @OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "bloqueios_id")
     private Set<Bloqueio> bloqueios = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)

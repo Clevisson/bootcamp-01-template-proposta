@@ -66,5 +66,5 @@ public class BloqueioCartaoController {
 
         URI uri = builder.path("/cartoes/{id}").build(cartaoBloqueado.getId());
         return ResponseEntity.created(uri).build();
-    } //else return ResponseEntity.notFound().build();
+    }
 }
