@@ -55,7 +55,7 @@ public class AssociarCarteiraController {
             }
         } catch (FeignException e) {
             System.out.println(e);
-            return ResponseEntity.unprocessableEntity().body("Erro feign");
+            return ResponseEntity.unprocessableEntity().body("Não foi possível processar os dados devido erro na solicitação ao sistema externo");
         }
 
         URI uri = builder.path("/carteiras/{id}").build(carteira.getId());
