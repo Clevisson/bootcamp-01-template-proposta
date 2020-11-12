@@ -1,5 +1,6 @@
 package com.zup.proposta.model;
 
+import com.zup.proposta.enums.EmissorCarteiras;
 import com.zup.proposta.enums.StatusBloqueioCartao;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Cartao {
     private Set<AvisoViagem> avisos = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Carteiras> carteiras = new HashSet<>();
+    private Set<Carteira> carteiras = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Parcela> parcelas = new HashSet<>();
@@ -52,7 +53,7 @@ public class Cartao {
                   String titular,
                   Set<Bloqueio> bloqueios,
                   Set<AvisoViagem> avisos,
-                  Set<Carteiras> carteiras,
+                  Set<Carteira> carteiras,
                   Set<Parcela> parcelas,
                   int limite,
                   Set<Renegociacao> renegociacao,
@@ -70,6 +71,10 @@ public class Cartao {
         this.vencimento = vencimento;
         this.idProposta = idProposta;
         this.statusBloqueio = StatusBloqueioCartao.DESBLOQUEADO;
+    }
+
+    public boolean VerificaEmissorCarteiraIgual(EmissorCarteiras emissorCarteiras) {
+        return carteiras.stream().anyMatch(carteira -> carteira.verificaCarteiraIgual(emissorCarteiras));
     }
 
     public String getId() {
@@ -92,7 +97,7 @@ public class Cartao {
         return avisos;
     }
 
-    public Set<Carteiras> getCarteiras() {
+    public Set<Carteira> getCarteiras() {
         return carteiras;
     }
 

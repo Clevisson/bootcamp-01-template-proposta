@@ -1,6 +1,6 @@
 package com.zup.proposta.controller;
 
-import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
+import com.zup.proposta.consultaExterna.IntegracaoApiCartao;
 import com.zup.proposta.enums.StatusBloqueioCartao;
 import com.zup.proposta.model.Bloqueio;
 import com.zup.proposta.model.Cartao;
@@ -26,7 +26,7 @@ import java.net.URI;
 @RequestMapping("/bloqueios")
 public class BloqueioCartaoController {
     @Autowired
-    private IntegracaoCriaCartao bloqueio;
+    private IntegracaoApiCartao bloqueio;
 
     @Autowired
     private CartaoRepository repository;

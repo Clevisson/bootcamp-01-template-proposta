@@ -10,7 +10,7 @@ public class RespostaCriaCartaoResponse {
     private String titular;
     private Set<Bloqueio> bloqueios;
     private Set<AvisoViagem> avisos;
-    private Set<Carteiras> carteiras;
+    private Set<Carteira> carteiras;
     private Set<Parcela> parcelas;
     private int limite;
     private Set<Renegociacao> renegociacao;
@@ -22,7 +22,7 @@ public class RespostaCriaCartaoResponse {
                                       String titular,
                                       Set<Bloqueio> bloqueios,
                                       Set<AvisoViagem> avisos,
-                                      Set<Carteiras> carteiras,
+                                      Set<Carteira> carteiras,
                                       Set<Parcela> parcelas,
                                       int limite,
                                       Set<Renegociacao> renegociacao,
@@ -61,7 +61,7 @@ public class RespostaCriaCartaoResponse {
         return avisos;
     }
 
-    public Set<Carteiras> getCarteiras() {
+    public Set<Carteira> getCarteiras() {
         return carteiras;
     }
 

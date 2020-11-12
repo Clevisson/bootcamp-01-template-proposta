@@ -1,6 +1,6 @@
 package com.zup.proposta.controller;
 
-import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
+import com.zup.proposta.consultaExterna.IntegracaoApiCartao;
 import com.zup.proposta.model.AvisoViagem;
 import com.zup.proposta.model.Cartao;
 import com.zup.proposta.request.AvisoViagemRequest;
@@ -26,7 +26,7 @@ public class AvisoViagemController {
     @Autowired
     private ExecutaTransacao executaTransacao;
     @Autowired
-    private IntegracaoCriaCartao aviso;
+    private IntegracaoApiCartao aviso;
 
     @PersistenceContext
     private EntityManager manager;

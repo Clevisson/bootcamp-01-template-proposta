@@ -1,6 +1,6 @@
 package com.zup.proposta.services;
 
-import com.zup.proposta.consultaExterna.IntegracaoCriaCartao;
+import com.zup.proposta.consultaExterna.IntegracaoApiCartao;
 import com.zup.proposta.enums.StatusAvaliacaoProposta;
 import com.zup.proposta.model.Cartao;
 import com.zup.proposta.model.Proposta;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Component
@@ -27,7 +26,7 @@ public class AssociaPropostaAoCartao {
     private EntityManager manager;
 
     @Autowired
-    private IntegracaoCriaCartao integracaoCriaCartao;
+    private IntegracaoApiCartao integracaoApiCartao;
 
     @Autowired
     private ExecutaTransacao executaTransacao;
@@ -41,7 +40,7 @@ public class AssociaPropostaAoCartao {
 
         for (Proposta p : propostasLegiveis) {
             try {
-                ResponseEntity<RespostaCriaCartaoResponse> resposta = integracaoCriaCartao.consultaCartaoCriado(p.getId().toString());
+                ResponseEntity<RespostaCriaCartaoResponse> resposta = integracaoApiCartao.consultaCartaoCriado(p.getId().toString());
                 System.out.println(resposta.toString());
                 if (resposta.getStatusCode() == HttpStatus.OK) {
                     Cartao cartao = new Cartao(resposta.getBody().getId(),
