@@ -12,6 +12,23 @@ services:
     networks:
       - postgres-compose-network
 
+  app:
+    container_name: proposta-spring-boot
+    image: proposta:lasted
+    build: ./
+    ports:
+      - "9000:9000"
+    environment:
+      CARTAO_URL: http://localhost:8888
+      ANALISE_URL: http://localhost:9999
+      KEYCLOAK_ISSUER_URI: http://localhost:18080/auth/realms/nosso-cartao
+      KEYCLOAK_JWKS_URI: http://localhost:18080/auth/realms/nosso-cartao/protocol/openid-connect/certs
+      JAEGER_ENDPOINT: http://localhost:14268/api/traces
+    depends_on:
+      - postgres-compose
+    networks:
+      - postgres-compose-network
+
   pgadmin-compose:
     image: dpage/pgadmin4
     environment:

@@ -2,7 +2,7 @@ spring:
   application:
     name: proposta
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
+    url: ${DB_URL:jdbc:postgresql://host.docker.internal:15432/postgres}
     username: ${DB_USER:postgres}
     password: ${DB_PASS:12345678}
     driver-class-name: org.postgresql.Driver
