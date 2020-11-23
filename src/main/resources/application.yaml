@@ -15,8 +15,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:18080/auth/realms/nosso-cartao}
-          jwk-set-uri: ${KEYCLOAK_JWKS_URI:http://localhost:18080/auth/realms/nosso-cartao/protocol/openid-connect/certs}
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://host.docker.internal:18080/auth/realms/nosso-cartao}
+          jwk-set-uri: ${KEYCLOAK_JWKS_URI:http://host.docker.internal:18080/auth/realms/nosso-cartao/protocol/openid-connect/certs}
 
 server:
   port: 9000
@@ -42,7 +42,7 @@ opentracing:
     enabled: { JAEGER_ENABLED:true }
     service-name: ${spring:application:name}
     http-sender:
-      url: ${JAEGER_ENDPOINT:http://localhost:14268/api/traces}
+      url: ${JAEGER_ENDPOINT:http://host.docker.internal:14268/api/traces}
     probabilistic-sampler:
       sampling-rate: ${JAEGER_SAMPLER:1}
 
